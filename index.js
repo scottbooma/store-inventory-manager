@@ -1,4 +1,4 @@
-let items = [
+let itemList = [
     {
         name: "+5 Dexterity Vest",
         sellIn: 10,
@@ -37,5 +37,25 @@ let itemObject = {
     quality: 0,
 }
 
-const itemTable = document.querySelector("#item-table")
+const $itemTable = document.querySelector("#item-table")
+
+itemList.forEach(item => {
+    addItemListingToPage(createItemListing(item))
+})
+
+function createItemListing(item) {
+    const $itemListing = document.createElement("tr")
+    $itemListing.classList.add("item-listing")
+    $itemListing.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.sellIn}</td>
+        <td>${item.quality}</td>
+    `
+    return $itemListing
+}
+
+
+function addItemListingToPage(itemListing) {
+    $itemTable.append(itemListing)
+}
 

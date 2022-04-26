@@ -16,4 +16,16 @@ h2 {
 
 #item-table {
     border: solid 2px black;
+    text-align: center;
 }
+
+td {
+    padding: 4px 12px;
+    border: solid 1px black;
+}
+
+th {
+    border: solid 2px black;
+    padding: 4px 12px;
+}
+
