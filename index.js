@@ -37,7 +37,8 @@ let itemList = [
 const $itemTableBody = document.querySelector("#item-table-body")
 const $form = document.querySelector("form")
 
-const today = format(new Date(), "d")
+const today = format(new Date(), "D", { useAdditionalDayOfYearTokens: true })
+
 
 
 $form.addEventListener("submit", event => {
@@ -48,6 +49,7 @@ $form.addEventListener("submit", event => {
         name: formdata.get("item-name"),
         sellIn: formdata.get("item-sell-in"),
         quality: formdata.get("item-quality"),
+        dateAdded: format(parseISO(formdata.get("item-receipt-date")), "D", { useAdditionalDayOfYearTokens: true })
     }
     itemList.push(itemObject)
     itemList.forEach(item => {

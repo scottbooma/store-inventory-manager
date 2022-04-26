@@ -17,6 +17,7 @@ h2 {
 #item-table {
     border: solid 2px black;
     text-align: center;
+    margin: 36px;
 }
 
 td {
@@ -27,6 +28,10 @@ td {
 th {
     border: solid 2px black;
     padding: 4px 12px;
+}
+
+form {
+    margin: 36px;
 }
 
 input {

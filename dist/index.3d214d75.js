@@ -561,7 +561,9 @@ let itemList = [
 ];
 const $itemTableBody = document.querySelector("#item-table-body");
 const $form = document.querySelector("form");
-const today = _dateFns.format(new Date(), "d");
+const today = _dateFns.format(new Date(), "D", {
+    useAdditionalDayOfYearTokens: true
+});
 $form.addEventListener("submit", (event)=>{
     event.preventDefault();
     $itemTableBody.innerHTML = ``;
@@ -569,7 +571,10 @@ $form.addEventListener("submit", (event)=>{
     const itemObject = {
         name: formdata.get("item-name"),
         sellIn: formdata.get("item-sell-in"),
-        quality: formdata.get("item-quality")
+        quality: formdata.get("item-quality"),
+        dateAdded: _dateFns.format(_dateFns.parseISO(formdata.get("item-receipt-date")), "D", {
+            useAdditionalDayOfYearTokens: true
+        })
     };
     itemList.push(itemObject);
     itemList.forEach((item)=>{
