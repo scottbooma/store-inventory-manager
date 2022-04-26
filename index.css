@@ -29,3 +29,7 @@ th {
     padding: 4px 12px;
 }
 
+input {
+    display: block;
+    margin-bottom: 24px;
+}

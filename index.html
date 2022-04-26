@@ -21,6 +21,24 @@
             <th>Quality (meaningless)</th>
         </thead>
     </table>
+    <form>
+        <label for="item-name">Enter item name</label>
+        <input type="text" name="item-name" id="item-name">
+
+        <label for="item-sell-in">Enter item sell in days</label>
+        <input type="number" name="item-sell-in" id="item-sell-in">
+
+        <label for="item-quality">Enter item quality</label>
+        <input type="number" name="item-quality" id="item-quality">
+
+        <label for="item-receipt-date">Date item received</label>
+        <input type="date" name="item-receipt-date" id="item-receipt-date">
+
+        <label for="confirm-receipt">Please confirm receipt of new item</label>
+        <input type="checkbox" name="confirm-receipt" id="confirm-receipt" required>
+
+        <input type="submit" value="Add new item to inventory">
+    </form>
 </body>
 
 </html>
