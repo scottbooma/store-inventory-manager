@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
     <link rel="stylesheet" href="index.css">
-    <script defer src="index.js"></script>
+    <script type="module" defer src="index.js"></script>
     <title>Rose Apothecary</title>
 </head>
 
@@ -20,6 +20,9 @@
             <th>Sell In (days)</th>
             <th>Quality (meaningless)</th>
         </thead>
+        <tbody id="item-table-body">
+
+        </tbody>
     </table>
     <form>
         <label for="item-name">Enter item name</label>
@@ -33,9 +36,6 @@
 
         <label for="item-receipt-date">Date item received</label>
         <input type="date" name="item-receipt-date" id="item-receipt-date">
-
-        <label for="confirm-receipt">Please confirm receipt of new item</label>
-        <input type="checkbox" name="confirm-receipt" id="confirm-receipt" required>
 
         <input type="submit" value="Add new item to inventory">
     </form>

@@ -1,3 +1,5 @@
+import { format, parseISO } from "date-fns"
+
 let itemList = [
     {
         name: "+5 Dexterity Vest",
@@ -31,17 +33,33 @@ let itemList = [
     }
 ]
 
-let itemObject = {
-    name: "",
-    sellIn: 0,
-    quality: 0,
-}
 
-const $itemTable = document.querySelector("#item-table")
+const $itemTableBody = document.querySelector("#item-table-body")
+const $form = document.querySelector("form")
+
+const today = format(new Date(), "d")
+
+
+$form.addEventListener("submit", event => {
+    event.preventDefault()
+    $itemTableBody.innerHTML = ``
+    const formdata = new FormData(event.target)
+    const itemObject = {
+        name: formdata.get("item-name"),
+        sellIn: formdata.get("item-sell-in"),
+        quality: formdata.get("item-quality"),
+    }
+    itemList.push(itemObject)
+    itemList.forEach(item => {
+        addItemListingToPage(createItemListing(item))
+    })
+    event.target.reset()
+})
 
 itemList.forEach(item => {
     addItemListingToPage(createItemListing(item))
 })
+
 
 function createItemListing(item) {
     const $itemListing = document.createElement("tr")
@@ -56,6 +74,6 @@ function createItemListing(item) {
 
 
 function addItemListingToPage(itemListing) {
-    $itemTable.append(itemListing)
+    $itemTableBody.append(itemListing)
 }
 

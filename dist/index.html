@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <link rel="stylesheet" href="/index.9e4c6fd2.css">
+    <script defer="" src="/index.3d214d75.js"></script>
+    <title>Rose Apothecary</title>
+</head>
+
+<body>
+    <h1>ROSE APOTHECARY</h1>
+    <h2>Inventory Management System</h2>
+    <table id="item-table">
+        <thead>
+            <th>Items</th>
+            <th>Sell In (days)</th>
+            <th>Quality (meaningless)</th>
+        </thead>
+        <tbody id="item-table-body">
+
+        </tbody>
+    </table>
+    <form>
+        <label for="item-name">Enter item name</label>
+        <input type="text" name="item-name" id="item-name">
+
+        <label for="item-sell-in">Enter item sell in days</label>
+        <input type="number" name="item-sell-in" id="item-sell-in">
+
+        <label for="item-quality">Enter item quality</label>
+        <input type="number" name="item-quality" id="item-quality">
+
+        <label for="item-receipt-date">Date item received</label>
+        <input type="date" name="item-receipt-date" id="item-receipt-date">
+
+        <input type="submit" value="Add new item to inventory">
+    </form>
+</body>
+
+</html>
