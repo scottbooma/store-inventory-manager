@@ -615,30 +615,30 @@ function sellInDegradation(item) {
 }
 function qualityDegradation(item) {
     if (item.name.includes("Aged Brie")) {
-        item.quality = item.quality + (today - item.dateAdded);
+        item.quality = +item.quality + (today - item.dateAdded);
         return item;
     } else if (item.name.includes("Sulfuras")) {
         item.quality = 80;
         return item;
     } else if (item.name.includes("Conjured")) {
-        item.quality = item.quality - double(today - item.dateAdded);
+        item.quality = +item.quality - double(today - item.dateAdded);
         return item;
     } else if (item.name.includes("Backstage pass")) {
         if (item.sellIn > 10) {
-            item.quality = item.quality + (today - item.dateAdded);
+            item.quality = +item.quality + (today - item.dateAdded);
             return item;
         } else if (item.sellIn <= 10 && item.sellIn > 5) {
-            item.quality = item.quality + double(today - item.dateAdded);
+            item.quality = +item.quality + double(today - item.dateAdded);
             return item;
         } else if (item.sellIn <= 5 && item.sellIn > 0) {
-            item.quality = item.quality + triple(today - item.dateAdded);
+            item.quality = +item.quality + triple(today - item.dateAdded);
             return item;
         } else {
             item.quality = 0;
             return item;
         }
     } else {
-        item.quality = item.quality - (today - item.dateAdded);
+        item.quality = +item.quality - (today - item.dateAdded);
         return item;
     }
 }
