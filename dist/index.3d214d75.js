@@ -584,12 +584,12 @@ $form.addEventListener("submit", (event)=>{
     };
     itemList.push(itemObject);
     itemList.forEach((item)=>{
-        addItemListingToPage(createItemListing(sellInDegradation(item)));
+        addItemListingToPage(createItemListing(qualityDegradation(sellInDegradation(item))));
     });
     event.target.reset();
 });
 itemList.forEach((item)=>{
-    addItemListingToPage(createItemListing(sellInDegradation(item)));
+    addItemListingToPage(createItemListing(qualityDegradation(sellInDegradation(item))));
 });
 function createItemListing(item) {
     const $itemListing = document.createElement("tr");
@@ -613,42 +613,41 @@ function sellInDegradation(item) {
         return item;
     }
 }
+function qualityDegradation(item) {
+    if (item.name.includes("Aged Brie")) {
+        item.quality = item.quality + (today - item.dateAdded);
+        return item;
+    } else if (item.name.includes("Sulfuras")) {
+        item.quality = 80;
+        return item;
+    } else if (item.name.includes("Conjured")) {
+        item.quality = item.quality - double(today - item.dateAdded);
+        return item;
+    } else if (item.name.includes("Backstage pass")) {
+        if (item.sellIn > 10) {
+            item.quality = item.quality + (today - item.dateAdded);
+            return item;
+        } else if (item.sellIn <= 10 && item.sellIn > 5) {
+            item.quality = item.quality + double(today - item.dateAdded);
+            return item;
+        } else if (item.sellIn <= 5 && item.sellIn > 0) {
+            item.quality = item.quality + triple(today - item.dateAdded);
+            return item;
+        } else {
+            item.quality = 0;
+            return item;
+        }
+    } else {
+        item.quality = item.quality - (today - item.dateAdded);
+        return item;
+    }
+}
 function double(number) {
     return number * 2;
 }
 function triple(number) {
     return number * 3;
-} // if (item.name.includes("Aged Brie")) {
- //     item.sellIn = item.sellIn - (today - item.dateAdded)
- //     item.quality = item.quality + (today - item.dateAdded)
- //     return item
- // } else if (item.name.includes("Conjured")) {
- //     item.sellIn = item.sellIn - (today - item.dateAdded)
- //     item.quality = item.quality - double(today - item.dateAdded)
- //     return item
- // } else if (item.name.includes("backstage pass")) {
- //     if (item.sellIn > 10) {
- //         item.sellIn = item.sellIn - (today - item.dateAdded)
- //         item.quality = item.quality + (today - item.dateAdded)
- //         return item
- //     } else if (item.sellIn <= 10 && item.sellIn > 5) {
- //         item.sellIn = item.sellIn - (today - item.dateAdded)
- //         item.quality = item.quality + double(today - item.dateAdded)
- //         return item
- //     } else if (item.sellIn <= 5 && item.sellIn > 0) {
- //         item.sellIn = item.sellIn - (today - item.dateAdded)
- //         item.quality = item.quality + triple(today - item.dateAdded)
- //         return item
- //     } else {
- //         item.sellIn = item.sellIn - (today - item.dateAdded)
- //         item.quality = 0
- //         return item
- //     }
- // } else {
- //     item.sellIn = item.sellIn - (today - item.dateAdded)
- //     item.quality = item.quality - (today - item.dateAdded)
- //     return item
- // }
+}
 
 },{"date-fns":"9yHCA"}],"9yHCA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
