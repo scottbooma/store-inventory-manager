@@ -628,10 +628,43 @@ function conjuredDegradation(item) {
     item.quality = qualityAssurance(item.quality - double(today - item.dateAdded));
     return item;
 }
+function backstagePassDegradation(item) {
+    const newSellIn = item.sellIn - (today - item.dateAdded);
+    if (item.sellIn > 10 && newSellIn > 10) {
+        item.sellIn = newSellIn;
+        item.quality = qualityAssurance(item.quality + (today - item.dateAdded));
+        return item;
+    } else if (item.sellIn <= 10 && item.sellIn > 5 && newSellIn <= 10 && newSellIn > 5) {
+        item.sellIn = newSellIn;
+        item.quality = qualityAssurance(item.quality + double(today - item.dateAdded));
+        return item;
+    } else if (item.sellIn <= 5 && item.sellIn > 0 && newSellIn <= 5 && newSellIn > 0) {
+        item.sellIn = newSellIn;
+        item.quality = qualityAssurance(item.quality + triple(today - item.dateAdded));
+        return item;
+    } else if (item.sellIn <= 0 || newSellIn <= 0) {
+        item.sellIn = newSellIn;
+        item.quality = 0;
+        return item;
+    } else if (item.sellIn > 10 && newSellIn <= 10 && newSellIn > 5) {
+        item.quality = qualityAssurance(item.quality + (item.sellIn - 10) + double(10 - newSellIn));
+        item.sellIn = newSellIn;
+        return item;
+    } else if (item.sellIn > 10 && newSellIn <= 5 && newSellIn > 0) {
+        item.quality = qualityAssurance(item.quality + (item.sellIn - 10) + 10 + triple(5 - newSellIn));
+        item.sellIn = newSellIn;
+        return item;
+    } else if (item.sellIn <= 10 && item.sellIn > 5 && newSellIn <= 5 && newSellIn > 0) {
+        item.quality = qualityAssurance(item.quality + double(item.sellIn - 5) + triple(5 - newSellIn));
+        item.sellIn = newSellIn;
+        return item;
+    } else return item;
+}
 function degradation(item) {
     if (item.name.includes("Aged Brie")) return agedBrieDegradation(item);
     else if (item.name.includes("Sulfuras")) return sulfurasDegradation(item);
     else if (item.name.includes("Conjured")) return conjuredDegradation(item);
+    else if (item.name.includes("Backstage pass")) return backstagePassDegradation(item);
     else return standardDegradation(item);
 }
 function double(number) {
