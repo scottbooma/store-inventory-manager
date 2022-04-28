@@ -53,19 +53,19 @@ $form.addEventListener("submit", event => {
     const formdata = new FormData(event.target)
     const itemObject = {
         name: formdata.get("item-name"),
-        sellIn: formdata.get("item-sell-in"),
-        quality: formdata.get("item-quality"),
+        sellIn: +formdata.get("item-sell-in"),
+        quality: +formdata.get("item-quality"),
         dateAdded: format(parseISO(formdata.get("item-receipt-date")), "D", { useAdditionalDayOfYearTokens: true })
     }
     itemList.push(itemObject)
     itemList.forEach(item => {
-        addItemListingToPage(createItemListing(qualityDegradation(sellInDegradation(item))))
+        addItemListingToPage(createItemListing(degradation(item)))
     })
     event.target.reset()
 })
 
 itemList.forEach(item => {
-    addItemListingToPage(createItemListing(qualityDegradation(sellInDegradation(item))))
+    addItemListingToPage(createItemListing(degradation(item)))
 })
 
 
@@ -85,43 +85,47 @@ function addItemListingToPage(itemListing) {
     $itemTableBody.append(itemListing)
 }
 
-function sellInDegradation(item) {
-    if (item.name.includes("Sulfuras")) {
-        item.quality = 80
-        return item
-    } else {
-        item.sellIn = item.sellIn - (today - item.dateAdded)
-        return item
+function qualityAssurance(quality) {
+    if (quality > 50) {
+        return quality = 50
+    } else if (quality < 0) {
+        return quality = 0
     }
+    return quality
 }
 
-function qualityDegradation(item) {
+function standardDegradation(item) {
+    item.sellIn = item.sellIn - (today - item.dateAdded)
+    item.quality = qualityAssurance(item.quality - (today - item.dateAdded))
+    return item
+}
+
+function agedBrieDegradation(item) {
+    item.sellIn = item.sellIn - (today - item.dateAdded)
+    item.quality = qualityAssurance(item.quality + (today - item.dateAdded))
+    return item
+}
+
+function sulfurasDegradation(item) {
+    item.quality = 80
+    return item
+}
+
+function conjuredDegradation(item) {
+    item.sellIn = item.sellIn - (today - item.dateAdded)
+    item.quality = qualityAssurance(item.quality - double(today - item.dateAdded))
+    return item
+}
+
+function degradation(item) {
     if (item.name.includes("Aged Brie")) {
-        item.quality = +item.quality + (today - item.dateAdded)
-        return item
+        return agedBrieDegradation(item)
     } else if (item.name.includes("Sulfuras")) {
-        item.quality = 80
-        return item
+        return sulfurasDegradation(item)
     } else if (item.name.includes("Conjured")) {
-        item.quality = +item.quality - double(today - item.dateAdded)
-        return item
-    } else if (item.name.includes("Backstage pass")) {
-        if (item.sellIn > 10) {
-            item.quality = +item.quality + (today - item.dateAdded)
-            return item
-        } else if (item.sellIn <= 10 && item.sellIn > 5) {
-            item.quality = +item.quality + double(today - item.dateAdded)
-            return item
-        } else if (item.sellIn <= 5 && item.sellIn > 0) {
-            item.quality = +item.quality + triple(today - item.dateAdded)
-            return item
-        } else {
-            item.quality = 0
-            return item
-        }
+        return conjuredDegradation(item)
     } else {
-        item.quality = +item.quality - (today - item.dateAdded)
-        return item
+        return standardDegradation(item)
     }
 }
 
